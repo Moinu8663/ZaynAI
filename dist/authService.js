@@ -45,13 +45,13 @@ class AuthService {
     getBackendUrl() {
         return vscode.workspace
             .getConfiguration("zaynai")
-            .get("backendUrl", "http://localhost:5206")
+            .get("backendUrl", "https://zaynaiapi20260903224144-gcdda6a7e7fsf5h5.centralindia-01.azurewebsites.net")
             .replace(/\/$/, "");
     }
     getPortalUrl() {
         return vscode.workspace
             .getConfiguration("zaynai")
-            .get("portalUrl", "http://127.0.0.1:4200");
+            .get("portalUrl", "https://zaynai.moinuddin.sbs");
     }
     async getToken() {
         return this.context.secrets.get(tokenKey);

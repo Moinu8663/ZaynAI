@@ -66,3 +66,4 @@ C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\refint\ZaynAI.Ap
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.pdb
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.genruntimeconfig.cache
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ref\ZaynAI.Api.dll
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.sourcelink.json

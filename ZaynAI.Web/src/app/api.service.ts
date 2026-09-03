@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { tap } from 'rxjs';
+import { environment } from '../environments/environment';
 
 const tokenKey = 'zaynai-token';
 
@@ -48,7 +49,7 @@ interface AuthResponse { token: string; user: User; }
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  private readonly baseUrl = 'http://localhost:5206/api';
+  private readonly baseUrl = environment.apiUrl;
   readonly currentUser = signal<User | null>(null);
 
   constructor(private readonly http: HttpClient) {}

@@ -41,14 +41,14 @@ export class AuthService {
   getBackendUrl(): string {
     return vscode.workspace
       .getConfiguration("zaynai")
-      .get<string>("backendUrl", "http://localhost:5206")
+      .get<string>("backendUrl", "https://zaynaiapi20260903224144-gcdda6a7e7fsf5h5.centralindia-01.azurewebsites.net")
       .replace(/\/$/, "");
   }
 
   getPortalUrl(): string {
     return vscode.workspace
       .getConfiguration("zaynai")
-      .get<string>("portalUrl", "http://127.0.0.1:4200");
+      .get<string>("portalUrl", "https://zaynai.moinuddin.sbs");
   }
 
   async getToken(): Promise<string | undefined> {
