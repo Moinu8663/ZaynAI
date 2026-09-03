@@ -1,0 +1,16 @@
+# Source files (compiled to dist/)
+src/
+tsconfig.json
+
+# Backend & web app (not part of the VS Code extension)
+AiDevAssistant.Api/
+AiDevAssistant.Web/
+
+# Dev dependencies
+node_modules/
+
+# Misc
+.vscode/
+.git/
+.gitignore
+*.map

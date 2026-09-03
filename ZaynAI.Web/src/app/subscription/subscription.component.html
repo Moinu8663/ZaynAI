@@ -1,0 +1,165 @@
+@if (user(); as account) {
+  <div class="sub-shell animate-fade-up">
+
+    <!-- Account header -->
+    <div class="account-card">
+      <div class="account-left">
+        <div class="avatar">{{ account.name.charAt(0).toUpperCase() }}</div>
+        <div class="account-info">
+          <p class="account-label">Signed in as</p>
+          <h2 class="account-name">{{ account.name }}</h2>
+          <p class="account-email">{{ account.email }}</p>
+        </div>
+      </div>
+      <div class="account-right">
+        <span class="status-badge" [ngClass]="isCanceled ? 'canceled' : 'active'">
+          <span class="status-dot"></span>
+          {{ account.subscription.status }}
+        </span>
+        <button type="button" class="btn-ghost" (click)="signOut()">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M13 3h4v14h-4M9 14l4-4-4-4M13 10H5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Sign out
+        </button>
+      </div>
+    </div>
+
+    <!-- Stats grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Current plan</span>
+        <strong class="stat-value">{{ account.subscription.planName }}</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Monthly price</span>
+        <strong class="stat-value">{{ account.subscription.monthlyPrice | currency:'USD':'symbol':'1.0-0' }}</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Started</span>
+        <strong class="stat-value">{{ account.subscription.startedAt | date:'mediumDate' }}</strong>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Renews</span>
+        <strong class="stat-value">{{ account.subscription.renewsAt ? (account.subscription.renewsAt | date:'mediumDate') : '—' }}</strong>
+      </div>
+    </div>
+
+    <!-- Usage bars -->
+    @if (usage()) {
+      <div class="usage-card">
+        <h3 class="usage-title">This month's usage</h3>
+        <div class="usage-grid">
+          <div class="usage-item">
+            <div class="usage-header">
+              <span class="usage-label">AI Requests</span>
+              <span class="usage-count">{{ usage()!.assistantRequestsUsed | number }} / {{ usage()!.assistantRequestsLimit | number }}</span>
+            </div>
+            <div class="usage-bar-track">
+              <div class="usage-bar-fill" [style.width.%]="getUsagePct(usage()!.assistantRequestsUsed, usage()!.assistantRequestsLimit)"
+                [class.warn]="getUsagePct(usage()!.assistantRequestsUsed, usage()!.assistantRequestsLimit) > 80"
+                [class.danger]="getUsagePct(usage()!.assistantRequestsUsed, usage()!.assistantRequestsLimit) > 95"></div>
+            </div>
+          </div>
+          <div class="usage-item">
+            <div class="usage-header">
+              <span class="usage-label">Workspace Scans</span>
+              <span class="usage-count">{{ usage()!.workspaceScansUsed | number }} / {{ usage()!.workspaceScansLimit | number }}</span>
+            </div>
+            <div class="usage-bar-track">
+              <div class="usage-bar-fill" [style.width.%]="getUsagePct(usage()!.workspaceScansUsed, usage()!.workspaceScansLimit)"
+                [class.warn]="getUsagePct(usage()!.workspaceScansUsed, usage()!.workspaceScansLimit) > 80"
+                [class.danger]="getUsagePct(usage()!.workspaceScansUsed, usage()!.workspaceScansLimit) > 95"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Alert -->
+    @if (message()) {
+      <div class="alert animate-fade-in" [class.success]="messageType() === 'success'">
+        <svg viewBox="0 0 20 20" fill="none">
+          @if (messageType() === 'success') {
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 10l2.5 2.5 4.5-4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          } @else {
+            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4M10 13.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          }
+        </svg>
+        {{ message() }}
+      </div>
+    }
+
+    <!-- Plans -->
+    <div class="section-heading">
+      <h3>Choose a plan</h3>
+      <p>Upgrade or downgrade at any time. Changes take effect immediately.</p>
+    </div>
+
+    <div class="plans-grid">
+      @for (plan of plans(); track plan.id) {
+        <div class="plan-card" [class.current]="isCurrentPlan(plan)" [class.popular]="plan.id === 'pro'">
+          @if (plan.id === 'pro') { <div class="popular-badge">Most popular</div> }
+
+          <div class="plan-top">
+            <div class="plan-icon" [ngClass]="'icon-' + plan.id">
+              @if (plan.id === 'free') {
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l2.4 4.8 5.3.8-3.85 3.75.91 5.3L10 14.1l-4.76 2.55.91-5.3L2.3 7.6l5.3-.8L10 2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              } @else if (plan.id === 'pro') {
+                <svg viewBox="0 0 20 20" fill="none"><path d="M3 14l3.5-7 3.5 4 2.5-3 4 6H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              } @else {
+                <svg viewBox="0 0 20 20" fill="none"><path d="M10 2l6 3v5c0 3.5-2.5 6.5-6 7.5C4.5 16.5 2 13.5 2 10V5l8-3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+              }
+            </div>
+            <div class="plan-name-wrap">
+              <h4 class="plan-name">{{ plan.name }}</h4>
+              <p class="plan-requests">{{ plan.monthlyAssistantRequests | number }} requests / mo</p>
+            </div>
+            <div class="plan-price">
+              <strong>{{ plan.monthlyPrice | currency:'USD':'symbol':'1.0-0' }}</strong>
+              <span>/mo</span>
+            </div>
+          </div>
+
+          <div class="plan-divider"></div>
+
+          <dl class="plan-meta">
+            <div><dt>Workspace scans</dt><dd>{{ plan.workspaceScans | number }}</dd></div>
+            <div><dt>Code changes</dt><dd>{{ plan.id !== 'free' ? 'Included' : 'Not included' }}</dd></div>
+          </dl>
+
+          <ul class="plan-features">
+            @for (feature of plan.features; track feature) {
+              <li>
+                <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" fill="rgba(99,102,241,0.12)"/><path d="M5 8l2 2 4-4" stroke="#818cf8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+
+          <button type="button" class="plan-btn" [class.current-btn]="isCurrentPlan(plan)"
+            [disabled]="loading() || isCurrentPlan(plan)" (click)="selectPlan(plan.id)">
+            @if (isCurrentPlan(plan)) {
+              <svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              Current plan
+            } @else {
+              {{ loading() ? 'Updating…' : 'Switch to ' + plan.name }}
+            }
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Danger zone -->
+    @if (!isCanceled) {
+      <div class="danger-zone">
+        <div>
+          <p class="danger-title">Cancel subscription</p>
+          <p class="danger-desc">Your plan remains active until the end of the billing period.</p>
+        </div>
+        <button type="button" class="btn-danger" [disabled]="loading()" (click)="cancelSubscription()">
+          Cancel subscription
+        </button>
+      </div>
+    }
+
+  </div>
+}

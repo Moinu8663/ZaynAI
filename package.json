@@ -1,0 +1,116 @@
+{
+  "name": "zaynai",
+  "displayName": "ZaynAI",
+  "description": "ZaynAI — AI-assisted software development for architecture, coding, debugging, migration, testing, database, DevOps, security, performance, documentation, UI/UX and automation.",
+  "version": "0.2.0",
+  "publisher": "your-company",
+  "license": "MIT",
+  "engines": { "vscode": "^1.95.0" },
+  "categories": ["AI", "Other"],
+  "activationEvents": ["onView:zaynai.chat"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "zaynai", "title": "ZaynAI", "icon": "media/icon.svg" }
+      ]
+    },
+    "views": {
+      "zaynai": [
+        { "id": "zaynai.chat", "name": "ZaynAI Assistant", "type": "webview" }
+      ]
+    },
+    "commands": [
+      { "command": "zaynai.ask", "title": "ZaynAI: Ask Assistant" },
+      { "command": "zaynai.analyzeWorkspace", "title": "ZaynAI: Analyze Workspace" },
+      { "command": "zaynai.explainCode", "title": "ZaynAI: Explain Selected Code" },
+      { "command": "zaynai.reviewCode", "title": "ZaynAI: Review Selected Code" },
+      { "command": "zaynai.generateTests", "title": "ZaynAI: Generate Tests" },
+      { "command": "zaynai.fixError", "title": "ZaynAI: Fix Error / Stack Trace" },
+      { "command": "zaynai.architecture", "title": "ZaynAI: Design Architecture" },
+      { "command": "zaynai.security", "title": "ZaynAI: Security Review" },
+      { "command": "zaynai.performance", "title": "ZaynAI: Performance Review" },
+      { "command": "zaynai.migration", "title": "ZaynAI: Migration Assistant" },
+      { "command": "zaynai.devops", "title": "ZaynAI: DevOps / CI-CD" },
+      { "command": "zaynai.database", "title": "ZaynAI: Database / SQL" },
+      { "command": "zaynai.documentation", "title": "ZaynAI: Generate Documentation" },
+      { "command": "zaynai.uiux", "title": "ZaynAI: UI / UX Assistant" },
+      { "command": "zaynai.automation", "title": "ZaynAI: Automation Assistant" },
+      { "command": "zaynai.insertResponse", "title": "ZaynAI: Insert Last Response" },
+      { "command": "zaynai.previewGeneratedChanges", "title": "ZaynAI: Preview Generated Changes" },
+      { "command": "zaynai.applyGeneratedChanges", "title": "ZaynAI: Apply Generated Changes" },
+      { "command": "zaynai.changeApiKey", "title": "ZaynAI: Change API Key" },
+      { "command": "zaynai.clearApiKey", "title": "ZaynAI: Clear API Key" }
+    ],
+    "menus": {
+      "editor/context": [
+        { "command": "zaynai.explainCode", "group": "zaynai@1" },
+        { "command": "zaynai.reviewCode", "group": "zaynai@2" },
+        { "command": "zaynai.generateTests", "group": "zaynai@3" }
+      ]
+    },
+    "configuration": {
+      "title": "ZaynAI",
+      "properties": {
+        "zaynai.provider": {
+          "type": "string",
+          "enum": ["OpenAI", "Azure OpenAI", "Gemini", "Custom API"],
+          "enumDescriptions": [
+            "OpenAI Responses API",
+            "Azure OpenAI compatible endpoint",
+            "Google Gemini GenerateContent API",
+            "Custom OpenAI-compatible API endpoint"
+          ],
+          "default": "OpenAI",
+          "description": "ZaynAI provider."
+        },
+        "zaynai.model": {
+          "type": "string",
+          "default": "gpt-5.6",
+          "description": "AI model or deployment name."
+        },
+        "zaynai.endpoint": {
+          "type": "string",
+          "default": "https://api.openai.com/v1/responses",
+          "description": "AI API endpoint. Gemini uses this only when you need to override its default endpoint."
+        },
+        "zaynai.maxWorkspaceFiles": {
+          "type": "number",
+          "default": 80,
+          "minimum": 10,
+          "maximum": 500,
+          "description": "Maximum number of text files included in workspace context."
+        },
+        "zaynai.maxFileChars": {
+          "type": "number",
+          "default": 12000,
+          "minimum": 1000,
+          "maximum": 100000,
+          "description": "Maximum characters read from an individual file."
+        },
+        "zaynai.autoFetchExplorerFiles": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically include the active Explorer file and workspace files relevant to each ZaynAI request."
+        },
+        "zaynai.autoApplyGeneratedChanges": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically apply complete file changes returned by ZaynAI. Preview the latest generated changes from the ZaynAI menu."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && npx @vscode/vsce package",
+    "lint": "tsc --noEmit -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/vscode": "^1.95.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.7.0"
+  }
+}

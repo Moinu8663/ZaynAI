@@ -1,0 +1,28 @@
+[
+  {
+    "id": "164cf2139e3941b9a3d0a5c6065063fd",
+    "name": "Alex Developer",
+    "email": "alex@example.com",
+    "passwordHash": "100000.z/QUmQSD7tRGEow1MCkY0Q==.\u002BmLTqWseX3RxPfpuZ2M1PLF1iYIeYKSQ8rF29haCWpg=",
+    "subscription": {
+      "plan": {
+        "id": "free",
+        "name": "Starter",
+        "monthlyPrice": 0,
+        "monthlyAssistantRequests": 100,
+        "workspaceScans": 5,
+        "features": [
+          "AI chat",
+          "Code explanations",
+          "Basic workspace scans"
+        ]
+      },
+      "status": "active",
+      "startedAt": "2026-08-28T15:41:08.9573911+00:00",
+      "renewsAt": null,
+      "canceledAt": null
+    },
+    "createdAt": "2026-08-28T15:37:30.5826208+00:00",
+    "lastSignedInAt": "2026-08-29T14:21:17.9358275+00:00"
+  }
+]
