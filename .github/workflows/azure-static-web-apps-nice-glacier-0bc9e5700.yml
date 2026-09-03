@@ -19,6 +19,27 @@ jobs:
         with:
           submodules: true
           lfs: false
+          # IMPORTANT: Use a Node version supported by Azure Oryx
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.0
+          cache: npm
+          cache-dependency-path: ./ZaynAI.Web/package-lock.json
+
+      - name: Check Node and npm versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Install dependencies
+        working-directory: ./ZaynAI.Web
+        run: npm ci
+
+      - name: Build Angular application
+        working-directory: ./ZaynAI.Web
+        run: npm run build
+        
       - name: Build And Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
