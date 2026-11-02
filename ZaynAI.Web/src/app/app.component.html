@@ -237,7 +237,7 @@
         </div>
       </header>
       <main class="auth-main">
-        <app-subscription></app-subscription>
+        <app-subscription (payPlan)="openPayment($event)"></app-subscription>
       </main>
     </div>
 
@@ -250,6 +250,16 @@
     <div class="modal-wrap" (click)="$event.stopPropagation()">
       <div class="modal-box">
         <app-auth (closed)="closeAuthModal()"></app-auth>
+      </div>
+    </div>
+  </div>
+}
+
+@if (paymentPlan()) {
+  <div class="modal-backdrop" (click)="closePayment()">
+    <div class="modal-wrap" (click)="$event.stopPropagation()">
+      <div class="modal-box">
+        <app-payment [plan]="paymentPlan()!" (closed)="closePayment()" (paid)="onPaymentComplete()"></app-payment>
       </div>
     </div>
   </div>

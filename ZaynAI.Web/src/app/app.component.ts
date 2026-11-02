@@ -1,24 +1,30 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // import { RouterOutlet } from '@angular/router';
-import { ApiService } from './api.service';
+import { ApiService, SubscriptionPlan } from './api.service';
 import { AuthComponent } from './auth/auth.component';
+import { PaymentComponent } from './payment/payment.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, AuthComponent, SubscriptionComponent],
+  imports: [CommonModule, AuthComponent, SubscriptionComponent, PaymentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   private readonly api = inject(ApiService);
   readonly user = this.api.currentUser;
-  readonly showAuthModal = signal(false);
+  readonly showAuthModal    = signal(false);
+  readonly paymentPlan      = signal<SubscriptionPlan | null>(null);
 
-  openAuthModal() { this.showAuthModal.set(true); }
+  openAuthModal()  { this.showAuthModal.set(true); }
   closeAuthModal() { this.showAuthModal.set(false); }
+
+  openPayment(plan: SubscriptionPlan) { this.paymentPlan.set(plan); }
+  closePayment()                       { this.paymentPlan.set(null); }
+  onPaymentComplete()                  { this.paymentPlan.set(null); }
 
   readonly features = [
     {

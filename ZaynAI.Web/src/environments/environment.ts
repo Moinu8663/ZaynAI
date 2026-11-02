@@ -2,3 +2,8 @@ export const environment = {
   production: false,
   apiUrl: 'https://zaynaiapi20260903224144-gcdda6a7e7fsf5h5.centralindia-01.azurewebsites.net/api'
 };
+// export const environment = {
+//   production: false,
+//   apiUrl: 'http://localhost:5206/api'
+// };
+

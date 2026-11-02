@@ -4,7 +4,7 @@
 --  Run    : after 01_schema.sql
 -- ============================================================
 
-USE ZaynabInfoTech;
+USE ZaynAi;
 GO
 
 -- ============================================================
@@ -261,7 +261,7 @@ GO
 --  Cancels the current subscription and creates a new active one.
 --  Used by PUT /api/subscription
 -- ============================================================
-CREATE OR ALTER PROCEDURE dbo.SP_ChangeSubscription
+CREATE OR ALTER PROCEDURE dbo.USP_ChangeSubscription
     @UserId NCHAR(32),
     @NewPlanId NVARCHAR(50),
     @Result    INT OUTPUT
@@ -314,7 +314,7 @@ GO
 --  Marks the current active subscription as Canceled.
 --  Used by POST /api/subscription/cancel
 -- ============================================================
-CREATE OR ALTER PROCEDURE dbo.SP_CancelSubscription
+CREATE OR ALTER PROCEDURE dbo.USP_CancelSubscription
     @UserId NCHAR(32)
 AS
 BEGIN

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ZaynAI.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8002dc2770f8d47f63bb59e61ed9514a9b9b7ca7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+24101401e9490060bd6c6ff3c82e9d477d3ad3ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("ZaynAI.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ZaynAI.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

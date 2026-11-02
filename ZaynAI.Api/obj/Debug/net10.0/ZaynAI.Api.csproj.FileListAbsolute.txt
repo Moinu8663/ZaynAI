@@ -1,12 +1,8 @@
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\appsettings.Development.json
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\App_Data\users.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\appsettings.json
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\App_Data\users.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.staticwebassets.endpoints.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.exe
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.deps.json
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.runtimeconfig.json
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.dll
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.pdb
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\Azure.Core.dll
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\Azure.Identity.dll
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -51,6 +47,7 @@ C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.Assem
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.AssemblyInfo.cs
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.csproj.CoreCompileInputs.cache
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.sourcelink.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
@@ -64,6 +61,10 @@ C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.cspro
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.dll
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\refint\ZaynAI.Api.dll
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.pdb
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.deps.json
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.runtimeconfig.json
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.dll
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\bin\Debug\net10.0\ZaynAI.Api.pdb
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.genruntimeconfig.cache
 C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ref\ZaynAI.Api.dll
-C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\ZaynAI.Api.sourcelink.json
+C:\Users\as\Projects\ZaynAI\ZaynAI\ZaynAI.Api\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AngularClient", policy =>
-        policy.WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? ["http://localhost:4200"])
+        policy.WithOrigins(builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? ["http://localhost:4200","https://zaynai.moinuddin.sbs","https://nice-glacier-0bc9e5700.3.azurestaticapps.net"])
               .AllowAnyHeader().AllowAnyMethod());
 });
 
@@ -643,7 +643,7 @@ public sealed class AppStore(IConfiguration configuration)
 {
     private string ConnectionString =>
         configuration.GetConnectionString("DefaultConnection1")
-        ?? throw new InvalidOperationException("DefaultConnection1 connection string is not configured.");
+        ?? throw new InvalidOperationException("DefaultConnection connection string is not configured.");
 
     private SqlConnection Open()
     {
@@ -764,7 +764,7 @@ public sealed class AppStore(IConfiguration configuration)
     {
         await using var conn = new SqlConnection(ConnectionString);
         await conn.OpenAsync();
-        await using var cmd = new SqlCommand("dbo.SP_ChangeSubscription", conn) { CommandType = CommandType.StoredProcedure };
+        await using var cmd = new SqlCommand("dbo.USP_ChangeSubscription", conn) { CommandType = CommandType.StoredProcedure };
         cmd.Parameters.AddWithValue("@UserId",    userId);
         cmd.Parameters.AddWithValue("@NewPlanId", planId);
         var resultParam = cmd.Parameters.Add("@Result", SqlDbType.Int);
@@ -786,7 +786,7 @@ public sealed class AppStore(IConfiguration configuration)
     {
         await using var conn = new SqlConnection(ConnectionString);
         await conn.OpenAsync();
-        await using var cmd = new SqlCommand("dbo.SP_CancelSubscription", conn) { CommandType = CommandType.StoredProcedure };
+        await using var cmd = new SqlCommand("dbo.USP_CancelSubscription", conn) { CommandType = CommandType.StoredProcedure };
         cmd.Parameters.AddWithValue("@UserId", userId);
         await using var reader = await cmd.ExecuteReaderAsync();
         return await reader.ReadAsync() ? MapUser(reader) : null;

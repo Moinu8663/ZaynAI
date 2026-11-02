@@ -50,6 +50,17 @@ export class AuthService {
       .getConfiguration("zaynai")
       .get<string>("portalUrl", "https://zaynai.moinuddin.sbs");
   }
+  //   getBackendUrl(): string {
+  //   return vscode.workspace
+  //     .getConfiguration("zaynai")
+  //     .get<string>("backendUrl", "https://localhost:7069")
+  //     .replace(/\/$/, "");
+  // }
+  //   getPortalUrl(): string {
+  //   return vscode.workspace
+  //     .getConfiguration("zaynai")
+  //     .get<string>("portalUrl", "");
+  // }
 
   async getToken(): Promise<string | undefined> {
     return this.context.secrets.get(tokenKey);

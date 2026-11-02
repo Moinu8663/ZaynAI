@@ -1,5 +1,5 @@
 import { CurrencyPipe, DatePipe, DecimalPipe, NgClass } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, signal } from '@angular/core';
 import { ApiService, SubscriptionPlan, UsageSummary } from '../api.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class SubscriptionComponent implements OnInit {
   readonly messageType = signal<'success' | 'error'>('success');
   readonly user    = this.api.currentUser;
   readonly usage   = signal<UsageSummary | null>(null);
+
+  @Output() payPlan = new EventEmitter<SubscriptionPlan>();
 
   ngOnInit() {
     this.api.loadPlans().subscribe({ next: (p) => this.plans.set(p) });
@@ -41,6 +43,13 @@ export class SubscriptionComponent implements OnInit {
   }
 
   selectPlan(planId: string) {
+    const plan = this.plans().find(p => p.id === planId);
+    if (!plan) return;
+    if (plan.monthlyPrice > 0) {
+      this.payPlan.emit(plan);
+      return;
+    }
+    // Free plan — switch directly
     this.loading.set(true);
     this.message.set('');
     this.api.changeSubscription(planId).subscribe({
@@ -56,6 +65,12 @@ export class SubscriptionComponent implements OnInit {
         this.message.set(err.error?.message ?? 'Could not update subscription. Please try again.');
       }
     });
+  }
+
+  onPaymentComplete() {
+    this.messageType.set('success');
+    this.message.set('Subscription upgraded successfully. Welcome!');
+    this.loadUsage();
   }
 
   cancelSubscription() {

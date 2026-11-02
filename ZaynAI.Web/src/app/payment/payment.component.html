@@ -1,0 +1,151 @@
+<div class="pay-shell">
+
+  <!-- Header -->
+  <div class="pay-header">
+    <div class="pay-header-left">
+      <div class="pay-icon">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M2 9h16" stroke="currentColor" stroke-width="1.5"/></svg>
+      </div>
+      <div>
+        <h2 class="pay-title">
+          @if (step() === 'success') { Payment confirmed } @else { Secure checkout }
+        </h2>
+        <p class="pay-sub">{{ plan.name }} plan · {{ plan.monthlyPrice | currency:'USD':'symbol':'1.0-0' }}/mo</p>
+      </div>
+    </div>
+    @if (step() !== 'success') {
+      <button class="close-btn" type="button" (click)="closed.emit()">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      </button>
+    }
+  </div>
+
+  <!-- Plan summary strip -->
+  <div class="plan-strip">
+    <div class="plan-strip-left">
+      <div class="plan-dot" [class]="'dot-' + plan.id"></div>
+      <span class="plan-strip-name">{{ plan.name }}</span>
+      <span class="plan-strip-req">{{ plan.monthlyAssistantRequests | number }} requests/mo</span>
+    </div>
+    <strong class="plan-strip-price">{{ plan.monthlyPrice | currency:'USD':'symbol':'1.2-2' }}<span>/mo</span></strong>
+  </div>
+
+  <!-- ── Step: form ── -->
+  @if (step() === 'form') {
+    <form class="pay-form" (ngSubmit)="review()" novalidate>
+
+      @if (error()) {
+        <div class="alert">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3M8 10.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          {{ error() }}
+        </div>
+      }
+
+      <div class="field" [class.has-error]="fieldErrors['name']">
+        <label>Cardholder name</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5" r="3" stroke="currentColor" stroke-width="1.3"/><path d="M2 14c0-2.76 2.69-5 6-5s6 2.24 6 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          <input type="text" placeholder="Name on card" [(ngModel)]="card.name" name="name" autocomplete="cc-name"/>
+        </div>
+        @if (fieldErrors['name']) { <span class="field-error">{{ fieldErrors['name'] }}</span> }
+      </div>
+
+      <div class="field" [class.has-error]="fieldErrors['number']">
+        <label>
+          Card number
+          @if (cardBrand) { <span class="card-brand">{{ cardBrand }}</span> }
+        </label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M1 7h14" stroke="currentColor" stroke-width="1.3"/></svg>
+          <input type="text" placeholder="1234 5678 9012 3456" [value]="card.number" (input)="formatCardNumber($event)" name="number" autocomplete="cc-number" inputmode="numeric" maxlength="19"/>
+        </div>
+        @if (fieldErrors['number']) { <span class="field-error">{{ fieldErrors['number'] }}</span> }
+      </div>
+
+      <div class="field-row">
+        <div class="field" [class.has-error]="fieldErrors['expiry']">
+          <label>Expiry</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 1v2M11 1v2M2 6h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            <input type="text" placeholder="MM/YY" [value]="card.expiry" (input)="formatExpiry($event)" name="expiry" autocomplete="cc-exp" inputmode="numeric" maxlength="5"/>
+          </div>
+          @if (fieldErrors['expiry']) { <span class="field-error">{{ fieldErrors['expiry'] }}</span> }
+        </div>
+
+        <div class="field" [class.has-error]="fieldErrors['cvv']">
+          <label>CVV</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 16 16" fill="none"><path d="M8 1l6 3v4c0 3-2.5 5.5-6 6.5C2.5 13.5 0 11 0 8V4l8-3z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+            <input type="password" placeholder="•••" [(ngModel)]="card.cvv" name="cvv" autocomplete="cc-csc" inputmode="numeric" maxlength="4"/>
+          </div>
+          @if (fieldErrors['cvv']) { <span class="field-error">{{ fieldErrors['cvv'] }}</span> }
+        </div>
+      </div>
+
+      <div class="secure-note">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M8 1l6 3v4c0 3-2.5 5.5-6 6.5C2.5 13.5 0 11 0 8V4l8-3z" stroke="#34d399" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        256-bit SSL encryption · PCI DSS compliant
+      </div>
+
+      <button type="submit" class="btn-primary">
+        Review order
+        <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h12M12 6l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </form>
+  }
+
+  <!-- ── Step: confirm ── -->
+  @if (step() === 'confirm') {
+    <div class="confirm-shell">
+      <div class="confirm-card">
+        <div class="confirm-row">
+          <span>Plan</span>
+          <strong>{{ plan.name }}</strong>
+        </div>
+        <div class="confirm-row">
+          <span>Billed</span>
+          <strong>Monthly</strong>
+        </div>
+        <div class="confirm-row">
+          <span>Card</span>
+          <strong>•••• {{ card.number.replace(/\s/g,'').slice(-4) }}</strong>
+        </div>
+        <div class="confirm-divider"></div>
+        <div class="confirm-row total">
+          <span>Total today</span>
+          <strong>{{ plan.monthlyPrice | currency:'USD':'symbol':'1.2-2' }}</strong>
+        </div>
+      </div>
+
+      @if (error()) {
+        <div class="alert">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M8 5v3M8 10.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          {{ error() }}
+        </div>
+      }
+
+      <div class="confirm-actions">
+        <button type="button" class="btn-ghost" (click)="back()" [disabled]="loading()">Back</button>
+        <button type="button" class="btn-primary" (click)="confirm()" [disabled]="loading()">
+          @if (loading()) {
+            <span class="spinner"></span> Processing…
+          } @else {
+            Confirm & pay {{ plan.monthlyPrice | currency:'USD':'symbol':'1.2-2' }}
+          }
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ── Step: success ── -->
+  @if (step() === 'success') {
+    <div class="success-shell">
+      <div class="success-icon">
+        <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#34d399" stroke-width="2"/><path d="M12 20l6 6 10-12" stroke="#34d399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h3>You're all set!</h3>
+      <p>Your <strong>{{ plan.name }}</strong> plan is now active. Enjoy {{ plan.monthlyAssistantRequests | number }} AI requests per month.</p>
+    </div>
+  }
+
+</div>

@@ -5,9 +5,9 @@
 -- ============================================================
 
 -- 1. Create the database
-IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'ZaynabInfoTech')
+IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'ZaynAi')
 BEGIN
-    CREATE DATABASE ZaynabInfoTech
+    CREATE DATABASE ZaynAi
         COLLATE SQL_Latin1_General_CP1_CI_AS;
 END
 GO
@@ -25,7 +25,7 @@ BEGIN
 END
 GO
 
-USE ZaynabInfoTech;
+USE ZaynAi;
 GO
 
 IF NOT EXISTS (SELECT 1 FROM sys.database_principals WHERE name = 'ai_dev_app')

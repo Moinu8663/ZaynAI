@@ -42,16 +42,27 @@ class AuthService {
     constructor(context) {
         this.context = context;
     }
+    // getBackendUrl(): string {
+    //   return vscode.workspace
+    //     .getConfiguration("zaynai")
+    //     .get<string>("backendUrl", "https://zaynaiapi20260903224144-gcdda6a7e7fsf5h5.centralindia-01.azurewebsites.net")
+    //     .replace(/\/$/, "");
+    // }
+    // getPortalUrl(): string {
+    //   return vscode.workspace
+    //     .getConfiguration("zaynai")
+    //     .get<string>("portalUrl", "https://zaynai.moinuddin.sbs");
+    // }
     getBackendUrl() {
         return vscode.workspace
             .getConfiguration("zaynai")
-            .get("backendUrl", "https://zaynaiapi20260903224144-gcdda6a7e7fsf5h5.centralindia-01.azurewebsites.net")
+            .get("backendUrl", "http://localhost:5206")
             .replace(/\/$/, "");
     }
     getPortalUrl() {
         return vscode.workspace
             .getConfiguration("zaynai")
-            .get("portalUrl", "https://zaynai.moinuddin.sbs");
+            .get("portalUrl", "https://localhost:4200");
     }
     async getToken() {
         return this.context.secrets.get(tokenKey);
